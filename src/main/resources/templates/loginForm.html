@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>LoginForm page</h1>
+<hr>
+<a href="/">홈 화면</a><br>
+<form action="loginProc" method="POST">
+	<input type="text" name="username" placeholder="id"><br>
+	<input type="text" name="password" placeholder="pw"><br>
+	<input type="submit" value="로그인">
+</form>
+<br>
+<th:block th:replace="~{fragments/alert :: alertScript}"></th:block>
+</body>
+</html>

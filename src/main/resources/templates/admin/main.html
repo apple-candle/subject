@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>admin main page</h1>
+<hr>
+<a href="/">홈으로</a>
+<br>
+<table>
+	<thead>
+		<tr>
+			<th>번호</th>
+			<th>이름</th>
+			<th>권한</th>
+			<th>계좌번호</th>
+			<th>잔액</th>
+			<th>상태</th>
+		</tr>
+	</thead>
+	<tbody>
+        <tr th:if="${#lists.isEmpty(members)}">
+            <td colspan="5">가입된 회원이 없습니다.</td>
+        </tr>
+        
+        <tr th:each="member : ${members}">
+            <td th:text="${member.id}"></td>
+            <td th:text="${member.username}"></td>
+            <td th:text="${member.role}"></td>
+            <td th:text="${member.accountNumber}"></td>
+            <td th:text="${member.balance}"></td>
+            <td>
+			   	<form th:action="@{/admin/freeze}" method="post" style="display:inline;">
+			        <input type="hidden" name="username" th:value="${member.username}">
+			        
+			        <button type="submit" 
+					        th:class="${member.account?.isFrozen} ? 'btn btn-success' : 'btn btn-danger'"
+					        th:text="${member.account?.isFrozen} ? '동결 해제' : '계좌 동결'">
+					</button>
+			    </form>
+			</td>
+        </tr>
+    </tbody>
+</table>
+<th:block th:replace="~{fragments/alert :: alertScript}"></th:block>
+</body>
+</html>

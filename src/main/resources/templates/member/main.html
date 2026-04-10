@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Member Main Page</title>
+</head>
+<body>
+    <h1>main page</h1>
+    <hr>
+
+    <div th:if="${errorMessage}" style="color: red;">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <div th:if="${successMessage}" style="color: blue;">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <section>
+        <h2>내 계좌 정보</h2>
+        <p>계좌 번호: <span th:text="${account.accountNumber}"></span></p> <p>현재 잔액: <span th:text="${#numbers.formatInteger(account.balance, 3, 'COMMA')}"></span>원</p> </section>
+    <hr>
+
+    <section>
+        <h2>입금하기</h2>
+        <form th:action="@{/member/deposit}" method="post">
+            <input type="number" name="amount" placeholder="입금할 금액" required>
+            <button type="submit">입금</button>
+        </form>
+    </section>
+    <hr>
+
+    <section>
+        <h2>송금하기</h2>
+        <form th:action="@{/member/transfer}" method="post">
+            <div>
+                <label>받는 분 계좌번호:</label>
+                <input type="text" name="receiverAccount" placeholder="계좌번호 입력" required>
+            </div>
+            <div>
+                <label>송금 금액:</label>
+                <input type="number" name="amount" placeholder="송금할 금액" required>
+            </div>
+            <button type="submit">송금하기</button>
+        </form>
+    </section>
+    <hr>
+
+    <section>
+        <a th:href="@{/member/history}">최근 거래 내역 확인하기 (최근 5건)</a> </section>
+
+    <br>
+    <a href="/">홈으로</a><br>
+    <a th:href="@{/logout}">로그아웃</a>
+    <th:block th:replace="~{fragments/alert :: alertScript}"></th:block>
+</body>
+</html>

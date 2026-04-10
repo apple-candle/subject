@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>RegistForm page</h1>
+<hr>
+<a href="/">홈 화면</a><br>
+<form action="registProc" method="post">
+	<input type="text" name="username" placeholder="your name"><br>
+	<input type="text" name="password" placeholder="input password"><br>
+	<input type="submit" value="등록">
+</form>
+<th:block th:replace="~{fragments/alert :: alertScript}"></th:block>
+</body>
+</html>

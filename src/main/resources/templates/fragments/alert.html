@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="alertScript">
+    <script th:inline="javascript">
+        // 페이지가 완전히 로드된 후 실행되도록 보장합니다.
+        window.onload = function() {
+            // 1. 서버 전송 메시지 확인
+            var errorMessage = /*[[${errorMessage}]]*/ null;
+            var successMessage = /*[[${successMessage}]]*/ null;
+
+            // 2. 주소창의 모든 텍스트를 읽어옵니다.
+            var currentUrl = window.location.href;
+
+            // 3. 조건 검사 (문자열이 포함되어 있는지 직접 확인)
+            if (errorMessage) {
+                alert(errorMessage);
+            } else if (successMessage) {
+                alert(successMessage);
+            } else if (currentUrl.includes('error=unauthorized')) {
+                alert('로그인이 필요한 서비스입니다. 다시 로그인 해주세요.');
+            } else if (currentUrl.includes('error=forbidden')) {
+                alert('해당 메뉴에 접근할 권한이 없습니다.');
+            }
+        };
+    </script>
+</th:block>
+
+</html>
